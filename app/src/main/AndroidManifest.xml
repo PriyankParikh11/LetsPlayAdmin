@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.priyank.letsplayadmin">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".SignInActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".ParticipantActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:label="Age Groups of Participants">
+        </activity>
+
+        <activity
+            android:name=".ParticipantNames"
+            android:label="Names of Participants"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".ParticipantActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.priyank.letsplayadmin.ParticipantActivity"/>
+        </activity>
+
+        <activity
+            android:name=".ParticipantDetails"
+            android:label="Details of Participants"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".ParticipantNames">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.priyank.letsplayadmin.ParticipantNames"/>
+        </activity>
+
+        <activity
+            android:name=".FullImageActivity"
+            android:label="Full Image View"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".ParticipantDetails">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.priyank.letsplayadmin.ParticipantDetails"/>
+        </activity>
+
+        <activity
+            android:name=".AcceptedListDetailActivity"
+            android:label="Accepted Participant's Details"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".ParticipantNames">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.priyank.letsplayadmin.ParticipantNames"/>
+
+        </activity>
+
+        <activity
+            android:name=".RejectedListDetailActivity"
+            android:label="Rejected Participant's Details"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:parentActivityName=".ParticipantNames">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.priyank.letsplayadmin.ParticipantNames"/>
+
+        </activity>
+
+    </application>
+
+</manifest>

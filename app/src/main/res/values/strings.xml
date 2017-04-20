@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">LetsPlayAdmin</string>
+
+    //Log In Page
+    <string name="splash_page_title">Welcome to LetsPlay Admin</string>
+    <string name="log_in_page_title">Please log in with your registered email address and password</string>
+    <string name="not_have_account">Can\'t Log in? Click here or Contact priyank@mybms.in</string>
+
+    <string name="email_address_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+
+    <string name="user_profile">Welcome to your profile page</string>
+    <string name="profile_title">User Profile</string>
+    <string name="user_name">Priyank</string>
+    <string name="Sign_out">SIGN OUT</string>
+    <string name="auto_fill">Autofill</string>
+    <string name="log_in_button">Log In</string>
+
+    //Error Messages
+    <string name="unknown_response">Known response</string>
+    <string name="sign_in_failed">Failed Log In</string>
+    <string name="sign_out_error">Failed to Log out</string>
+    <string name="incorrect_password">Incorrect Password</string>
+    <string name="incorrect_email">Incorrect EmailAddress</string>
+    <string name="error_msg_email">Please enter a Valid Email Address</string>
+    <string name="error_msg_password">Please Enter the correct Password</string>
+
+    //Participant Age Group
+    <string name="participant_age_group_title">Age Groups of Participants</string>
+    <string name="refresh">Refresh</string>
+
+    //Participant Names
+    <string name="participant_names_title">Names of Participants</string>
+
+
+    //ImageView Content Description
+    <string name="desc"> </string>
+
+
+    //Participant Details
+    <string name="details_of_participants_title">Details of Participants</string>
+    <string name="profile_picture_title">Profile Picture</string>
+    <string name="email_address_title">Email Address:</string>
+    <string name="first_name_title">First Name:</string>
+    <string name="last_name_title">Last Name:</string>
+    <string name="home_address_title">Home Address:</string>
+    <string name="gender_title">Gender:</string>
+    <string name="contact_number_title">Contact Number:</string>
+    <string name="emergency_contact_number_title">Emergency Contact Number:</string>
+    <string name="birth_certificate_title">Birth Certificate</string>
+    <string name="selected_games_title">Selected Games</string>
+    <string name="accept_button">ACCEPT</string>
+    <string name="reject_button">REJECT</string>
+    <string name="age_group_heading">Age Group: </string>
+    <string name="tap_image_to_view_fullscreen">(Tap on Image to expand)</string>
+
+    <string name="accepted_by_email_address">Application Accepted By: </string>
+    <string name="rejected_by_email_address">Application Rejected By: </string>
+
+    //Full Image Activity
+    <string name="long_press_image_title">Tap on Image to Save</string>
+    <string name="remove_button">REMOVE</string>
+    <string name="home_button">HOME</string>
+
+
+    <string name="empty">Participant List is Empty! \n \n Please refresh Or try again later</string>
+
+</resources>

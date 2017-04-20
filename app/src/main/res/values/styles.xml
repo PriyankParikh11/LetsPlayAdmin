@@ -1,0 +1,30 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.Design">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/backgroundImagePicker</item>
+        <item name="colorPrimaryDark">@color/backgroundImagePicker2</item>
+        <item name="textColorAlertDialogListItem">@color/backgroundImagePicker1</item>
+        <item name="android:textColorSecondary">@color/colorBlack</item>
+        <item name="android:textColorHint">@color/backgroundImagePicker2</item>
+
+        //Changing EditText color
+        <item name="colorControlActivated">@color/backgroundImagePicker</item>
+        <item name="colorControlHighlight">@color/backgroundImagePicker</item>
+
+    </style>
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat">
+
+        <item name="android:typeface">normal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/backgroundImagePicker3</item>
+
+    </style>
+
+    <style name="MyProgressDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:textColor">@color/backgroundImagePicker</item>
+        <item name="android:windowBackground">@color/backgroundImagePicker1</item>
+    </style>
+
+</resources>
