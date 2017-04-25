@@ -133,13 +133,11 @@ public class SignInActivity extends Activity implements View.OnClickListener {
         mAutoFill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG, "Autofill OnClick " + v);
+                Log.v(TAG, "Autofill OnClick " + v);
 
                 //Account Manager Permission request
-                AccountManager mManager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
                 if (ActivityCompat.checkSelfPermission(SignInActivity.this,
                         android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
                     // here to request the missing permissions, and then overriding
                     //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -156,7 +154,7 @@ public class SignInActivity extends Activity implements View.OnClickListener {
                     // TODO: Check possibleEmail against an email regex or treat
                     // account.name as an email address only for certain account.type values.
                     mPossibleEmail = account.name;
-                    Log.e(TAG, "Account " + account);
+                    Log.i(TAG, "Account " + account);
                 }
 
                 mEmailAddress.setText(mPossibleEmail);
@@ -190,6 +188,7 @@ public class SignInActivity extends Activity implements View.OnClickListener {
         mProgressDialog = new ProgressDialog(this, R.style.MyProgressDialog);
         mProgressDialog.setMessage("Signing In...");
         mProgressDialog.show();
+        mProgressDialog.setIndeterminate(true);
 
         mFirebaseAuth.signInWithEmailAndPassword(sEmail, sPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -236,6 +235,7 @@ public class SignInActivity extends Activity implements View.OnClickListener {
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
+            Log.i(TAG, "Back Pressed Once");
             return;
         }
 

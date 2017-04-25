@@ -55,19 +55,7 @@
                 android:text="@string/profile_picture_title"
                 android:textColor="@color/backgroundImagePicker"/>
 
-            <ImageView
-                android:id="@+id/profile"
-                android:layout_width="150sp"
-                android:layout_height="150sp"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5sp"
-                android:clickable="true"
-                android:contentDescription="@string/desc"/>
-
             <TextView
-
                 android:layout_width="300sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -76,6 +64,17 @@
                 android:textAlignment="center"
                 android:text="@string/tap_image_to_view_fullscreen"
                 android:textColor="@color/backgroundImagePicker"/>
+
+            <ImageView
+                android:id="@+id/profile"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5sp"
+                android:clickable="true"
+                android:contentDescription="@string/desc"/>
+
 
             <LinearLayout
                 android:layout_width="300sp"
@@ -227,17 +226,6 @@
                     android:text="@string/birth_certificate_title"
                     android:textColor="@color/backgroundImagePicker"/>
 
-                <ImageView
-                    android:id="@+id/certificate"
-                    android:layout_width="150sp"
-                    android:layout_height="150sp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10sp"
-                    android:contentDescription="@string/desc"
-                    android:clickable="true"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"/>
-
                 <TextView
                     android:layout_width="300sp"
                     android:layout_height="wrap_content"
@@ -247,6 +235,17 @@
                     android:textStyle="bold"
                     android:text="@string/tap_image_to_view_fullscreen"
                     android:textColor="@color/backgroundImagePicker"/>
+
+                <ImageView
+                    android:id="@+id/certificate"
+                    android:layout_width="150sp"
+                    android:layout_height="150sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10sp"
+                    android:contentDescription="@string/desc"
+                    android:clickable="true"
+                    android:adjustViewBounds="true"/>
+
 
                 <TextView
                     android:id="@+id/age_group_title"
@@ -300,11 +299,10 @@
                     android:layout_marginEnd="10sp"
                     android:layout_gravity="start"
                     android:textStyle="bold"
-                    android:background="@drawable/button_bg"
-                    android:textColor="@color/backgroundImagePicker1"/>
+                    android:background="@drawable/button"
+                    android:textColor="@color/backgroundImagePicker"/>
 
                 <Button
-
                     android:id="@+id/undo_reject"
                     android:layout_width="80sp"
                     android:layout_height="50sp"
@@ -315,8 +313,8 @@
                     android:layout_alignParentEnd="true"
                     android:textStyle="bold"
                     android:text="@string/home_button"
-                    android:background="@drawable/button_bg"
-                    android:textColor="@color/backgroundImagePicker1"/>
+                    android:background="@drawable/button"
+                    android:textColor="@color/backgroundImagePicker"/>
 
             </RelativeLayout>
 

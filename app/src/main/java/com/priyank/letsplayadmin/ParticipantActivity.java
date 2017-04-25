@@ -37,7 +37,7 @@ public class ParticipantActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_participant);
-        Log.e(TAG, "ParticipantActivity Started");
+        Log.v(TAG, "ParticipantActivity Started");
 
         //Sign Out
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -63,14 +63,16 @@ public class ParticipantActivity extends AppCompatActivity implements View.OnCli
         final String mLoggedInEmailAddress = mAdmin.getText().toString();
         mSignOut.setOnClickListener(this);
 
-        //Participant Details
+        //Participant's Details
 
         //Get listView object from XML
         final ListView mAgeListView = (ListView) findViewById(R.id.ageGroup_list);
-        //Create a New Adapter
 
+        //Create a New Adapter
         final ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this,
                 R.layout.simple_list_item_1, android.R.id.text1);
+
+        mAdapter.clear();
 
         mRefresh = (Button) findViewById(R.id.action_refresh);
         mRefresh.setOnClickListener(this);
@@ -83,29 +85,16 @@ public class ParticipantActivity extends AppCompatActivity implements View.OnCli
                 // Do something after 15s = 15000ms
                 mAgeListView.setEmptyView(findViewById(R.id.emptyElement));
 
-                /**
-                mRefresh.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Intent intent = getIntent();
-                        finish();
-                        overridePendingTransition( 0, 0);
-                        startActivity(intent);
-                        overridePendingTransition( 0, 0);
-                    }
-                });
-                **/
             }
         }, 15000);
 
         //Connect to Firebase Database
         mDatabase = FirebaseDatabase.getInstance();
-        //Log.e(TAG, "Firebase Instance " + mDatabase);
+        //Log.i(TAG, "Firebase Instance " + mDatabase);
 
         // Get a reference to the Participants child items it the database
         DatabaseReference mAgeRef = mDatabase.getReference();
-        //Log.e(TAG, "Database Reference " + mAgeRef);
+        //Log.i(TAG, "Database Reference " + mAgeRef);
 
         // Assign a listener to detect changes to the child items
         // of the database reference.
@@ -119,9 +108,11 @@ public class ParticipantActivity extends AppCompatActivity implements View.OnCli
                     Log.i(TAG, "Age Groups: " + mAgeGroup);
 
                     mAdapter.add(mAgeGroup);
+
                     //for(DataSnapshot mKeySnapshot: dataSnapshot.getChildren()) {
                     //final String mKey = mKeySnapshot.getKey();
                     //Log.i(TAG, "Key: " + mKey);
+
                     mAgeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -184,10 +175,6 @@ public class ParticipantActivity extends AppCompatActivity implements View.OnCli
                                 year40Intent.putExtra("EmailAddress", mLoggedInEmailAddress);
                                 startActivity(year40Intent);
                             }
-                        }
-
-                        @SuppressWarnings("unused")
-                        public void onClick(View v) {
                         }
                     });
                 }

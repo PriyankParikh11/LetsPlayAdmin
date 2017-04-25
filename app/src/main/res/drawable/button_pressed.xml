@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+
     <gradient
-        android:startColor="@color/backgroundImagePicker1"
-        android:centerColor="@color/backgroundImagePicker2"
-        android:endColor="@color/backgroundImagePicker1"
+        android:startColor="@color/backgroundImagePicker2"
+        android:centerColor="@color/backgroundImagePicker1"
+        android:endColor="@color/backgroundImagePicker2"
         android:angle="90"/>
+
     <padding android:left="7dp"
         android:top="7dp"
         android:right="7dp"
         android:bottom="7dp" />
+
     <stroke
         android:width="2dip"
-        android:color="@color/backgroundImagePicker2" />
-    <corners android:radius= "8dp" />
+        android:color="@color/backgroundImagePicker1" />
+
+    <corners
+        android:bottomLeftRadius="15dip"
+        android:bottomRightRadius="15dip"
+        android:topLeftRadius="15dip"
+        android:topRightRadius="15dip">
+
+    </corners>
+
 </shape>

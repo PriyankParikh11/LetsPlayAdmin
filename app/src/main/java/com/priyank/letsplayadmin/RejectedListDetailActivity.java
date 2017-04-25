@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -64,6 +65,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Connect to Firebase Database
@@ -155,7 +157,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
         StorageReference mStorageRef = mStorage.getReferenceFromUrl("gs://letsplay-6cc97.appspot.com/");
 
         StorageReference mProfileRef = mStorageRef.child(sFirstName + " " + sLastName + " (" + sContact + ")").child("profile.jpg");
-        //Log.e(TAG, "Profile Reference " + mProfileRef);
+        //Log.i(TAG, "Profile Reference " + mProfileRef);
 
         File localFile = null;
         try {
@@ -176,6 +178,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
                 Toast.makeText(getApplicationContext(), "Profile image download Failed!" + exception, Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Upload Failure: Profile Image to Firebase " + exception.getMessage());
             }
         });
 
@@ -190,13 +193,14 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
             @Override
             public void onClick(View v) {
 
-                //Log.d(TAG, "Profile Image Clicked");
+                //Log.v(TAG, "Profile Image Clicked");
 
                 Intent profileIntent = new Intent(RejectedListDetailActivity.this, FullImageActivity.class);
 
                 if (mProfile.getDrawable() == null){
                     Toast.makeText(getApplicationContext(), "Profile Image loading, please wait...", Toast.LENGTH_SHORT).show();
                 }
+
                 else {
                     Bitmap profileBitmap = ((GlideBitmapDrawable) mProfile.getDrawable().getCurrent()).getBitmap();
 
@@ -219,7 +223,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
 
         // Certificate Image retrieve from Firebase Storage
         StorageReference mCertificateRef = mStorageRef.child(sFirstName + " " + sLastName + " (" + sContact + ")").child("Certificate.jpg");
-        //Log.e(TAG, "Certificate Reference " + mCertificateRef);
+        //Log.v(TAG, "Certificate Reference " + mCertificateRef);
 
         File localFile1 = null;
         try {
@@ -240,6 +244,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
                 Toast.makeText(getApplicationContext(), "Certificate image download Failed!" + exception, Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Upload Failure: Certificate Image to Firebase " + exception.getMessage());
             }
         });
 
@@ -254,13 +259,14 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
             @Override
             public void onClick(View v) {
 
-                //Log.d(TAG, "Certificate Image Clicked");
+                //Log.v(TAG, "Certificate Image Clicked");
 
                 Intent certificateIntent = new Intent(RejectedListDetailActivity.this, FullImageActivity.class);
 
                 if (mCertificate.getDrawable() == null){
                     Toast.makeText(getApplicationContext(), "Certificate Image loading, please wait...", Toast.LENGTH_SHORT).show();
                 }
+
                 else {
                     Bitmap certificateBitmap = ((GlideBitmapDrawable) mCertificate.getDrawable().getCurrent()).getBitmap();
 
@@ -316,18 +322,19 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
                 public void onClick(DialogInterface dialog, int which) {
 
                     DatabaseReference mNameRef = mDatabase.getReference("Rejected Participants");
-                    //Log.e(TAG, "Reject Name Ref " + mNameRef);
+                    //Log.i(TAG, "Reject Name Ref " + mNameRef);
 
                     mNameRef.child(sFirstName + " " + sLastName).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            //Log.e(TAG, "Data snapshot " + dataSnapshot);
+                            //Log.i(TAG, "Data snapshot " + dataSnapshot);
                             dataSnapshot.getRef().removeValue();
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            Log.e(TAG, "Failed to remove Firebase Accepted List " + "First name: " + sFirstName + databaseError.getMessage());
 
                         }
                     });
@@ -340,7 +347,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
                     StorageReference mStorageRef = mStorage.getReferenceFromUrl("gs://letsplay-6cc97.appspot.com/");
 
                     StorageReference mProfileRef = mStorageRef.child(sFirstName + " " + sLastName + " (" + sContact + ")").child("profile.jpg");
-                    //Log.e(TAG, "Profile Reference " + mProfileRef);
+                    //Log.i(TAG, "Profile Reference " + mProfileRef);
 
                     mProfileRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -351,6 +358,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Uh-oh, an error occurred!
+                            Log.e(TAG, "Remove: Failed to delete Profile Image of: " + sFirstName + exception.getMessage());
                         }
                     });
 
@@ -365,6 +373,7 @@ public class RejectedListDetailActivity extends AppCompatActivity implements Vie
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Uh-oh, an error occurred!
+                            Log.e(TAG, "Remove: Failed to delete Certificate Image of: " + sFirstName + exception.getMessage());
                         }
                     });
 

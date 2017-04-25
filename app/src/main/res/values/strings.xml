@@ -63,6 +63,9 @@
     <string name="home_button">HOME</string>
 
 
-    <string name="empty">Participant List is Empty! \n \n Please refresh Or try again later</string>
+    <string name="empty">Participant list seems empty. \n \n Please refresh Or try again later</string>
+
+    <string name="print">Print</string>
+
 
 </resources>

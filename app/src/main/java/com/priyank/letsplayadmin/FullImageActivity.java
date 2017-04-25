@@ -33,7 +33,6 @@ public class FullImageActivity extends AppCompatActivity {
     ImageView mFullImage;
     Bitmap bitmap;
     OutputStream output;
-    static int fCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +151,7 @@ public class FullImageActivity extends AppCompatActivity {
         }
 
         // Create a name for the saved image
-        File mFile = new File(mDir, mFirstName + " " + mLastName + "(" + String.valueOf(fCount++) + ")"  + ".jpg");
+        File mFile = new File(mDir, mFirstName + " " + mLastName + ".jpg");
 
         try {
             output = new FileOutputStream(mFile);

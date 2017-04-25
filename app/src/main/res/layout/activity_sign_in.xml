@@ -84,7 +84,6 @@
             android:inputType="textPassword"
             android:textColor="@color/backgroundImagePicker"
             android:textColorHint="@color/backgroundImagePicker"/>
-
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -93,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_gravity="center_horizontal"
-            android:ems="7"
+            android:ems="5"
             android:text="@string/log_in_button"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -105,6 +104,7 @@
             android:layout_width="250sp"
             android:layout_height="wrap_content"
             android:ems="15"
+            android:textStyle="bold|italic"
             android:linksClickable="true"
             android:textAlignment="center"
             android:textColor="@color/backgroundImagePicker"

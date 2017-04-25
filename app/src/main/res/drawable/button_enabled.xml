@@ -14,5 +14,12 @@
     <stroke
         android:width="2dip"
         android:color="@color/backgroundImagePicker1" />
-    <corners android:radius= "8dp" />
+
+    <corners
+        android:bottomLeftRadius="15dip"
+        android:bottomRightRadius="15dip"
+        android:topLeftRadius="15dip"
+        android:topRightRadius="15dip">
+
+    </corners>
 </shape>

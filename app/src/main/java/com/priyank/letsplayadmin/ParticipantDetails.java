@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.firebase.client.Firebase;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -59,7 +60,7 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_of_participants);
-        Log.e(TAG, "ParticipantDetailsActivity Started");
+        Log.v(TAG, "ParticipantDetailsActivity Started");
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,8 +68,7 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Connect to Firebase Database
-        mDatabase = FirebaseDatabase.getInstance();
+        mDatabase = FirebaseDatabase.getInstance(); //Connect to Firebase Database
 
         //TextViews
         mEmail = (TextView) findViewById(R.id.email_address);
@@ -107,7 +107,7 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
         String sContact = intent.getStringExtra("contact");
         String sEmergencyContact = intent.getStringExtra("econtact");
 
-        //Log.d(TAG, "Intent Age Group " + sAgeGroup);
+        //Log.i(TAG, "Intent Age Group " + sAgeGroup);
 
         //Set Values from Strings
         mFName.setText(sFirstName);
@@ -152,7 +152,7 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
         //Storage reference from our app
         StorageReference mStorageRef = mStorage.getReferenceFromUrl("gs://letsplay-6cc97.appspot.com/");
         StorageReference mProfileRef = mStorageRef.child(sFirstName + " " + sLastName + " (" + sContact + ")").child("profile.jpg");
-        //Log.e(TAG, "Profile Reference " + mProfileRef);
+        //Log.i(TAG, "Profile Reference " + mProfileRef);
 
         File localFile = null;
         try {
@@ -173,20 +173,21 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), "Profile image download Failed! " +
                         e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Upload Failure: Profile Image to Firebase " + e.getMessage());
             }
         });
 
         Glide.with(ParticipantDetails.this /* context */)
                 .using(new FirebaseImageLoader())
                 .load(mProfileRef)
-                //.diskCacheStrategy(DiskCacheStrategy.NONE)
-                //.skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(mProfile);
 
         mProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d(TAG, "Profile Image Clicked");
+                //Log.v(TAG, "Profile Image Clicked");
 
                 Intent profileIntent = new Intent(ParticipantDetails.this, FullImageActivity.class);
 
@@ -215,7 +216,7 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
 
         // Certificate Image retrieve from Firebase Storage
         StorageReference mCertificateRef = mStorageRef.child(sFirstName + " " + sLastName + " (" + sContact + ")").child("Certificate.jpg");
-        //Log.e(TAG, "Certificate Reference " + mCertificateRef);
+        //Log.v(TAG, "Certificate Reference " + mCertificateRef);
 
         File localFile1 = null;
         try {
@@ -236,20 +237,21 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), "Certificate image download Failed! " +
                         e.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Upload Failure: Certificate Image to Firebase " + e.getMessage());
             }
         });
 
         Glide.with(ParticipantDetails.this /* context */)
                 .using(new FirebaseImageLoader())
                 .load(mCertificateRef)
-                //.diskCacheStrategy(DiskCacheStrategy.NONE)
-                //.skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .into(mCertificate);
 
         mCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d(TAG, "Certificate Image Clicked");
+                //Log.v(TAG, "Certificate Image Clicked");
 
                 Intent certificateIntent = new Intent(ParticipantDetails.this, FullImageActivity.class);
 
@@ -358,17 +360,18 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
                     participants.child(sFirstName + " " + sLastName).setValue(participant);
                     {
                         DatabaseReference mNameRef = mDatabase.getReference(sAgeGroup);//.child(sFirstName + " " + sLastName);
-                        Log.e(TAG, "Accept Name Ref " + mNameRef);
+                        Log.i(TAG, "Accept Name Ref " + mNameRef);
 
                         mNameRef.child(sFirstName + " " + sLastName).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Log.e(TAG, "Datasnapshot " + dataSnapshot);
+                                Log.i(TAG, "Datasnapshot " + dataSnapshot);
                                 dataSnapshot.getRef().removeValue();
                             }
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
+                                Log.e(TAG, "Upload to Firebase Error on Accept clicked: " + databaseError.getDetails());
                             }
                         });
                     }
@@ -417,7 +420,7 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
                     String sEmergencyContact = intent.getStringExtra("econtact");
 
                     final String sLoggedInEmailAddress = intent.getStringExtra("EmailAddress");
-                    Log.e(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
+                    Log.v(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
 
                     Intent reject = new Intent(Intent.ACTION_SEND);
                     reject.putExtra(Intent.EXTRA_EMAIL, new String[]{sEmailAddress});
@@ -457,17 +460,18 @@ public class ParticipantDetails extends AppCompatActivity implements View.OnClic
                     participants.child(sFirstName + " " + sLastName).setValue(participant);
                     {
                         DatabaseReference mNameRef = mDatabase.getReference(sAgeGroup);
-                        Log.e(TAG, "Reject Name Ref " + mNameRef);
+                        Log.i(TAG, "Reject Name Ref " + mNameRef);
 
                         mNameRef.child(sFirstName + " " + sLastName).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Log.e(TAG, "Datasnapshot " + dataSnapshot);
+                                Log.i(TAG, "Datasnapshot " + dataSnapshot);
                                 dataSnapshot.getRef().removeValue();
                             }
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
+                                Log.e(TAG, "Upload to Firebase Error on Reject clicked: " + databaseError.getDetails());
                             }
                         });
                     }

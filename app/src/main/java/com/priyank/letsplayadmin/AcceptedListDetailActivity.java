@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -36,8 +37,6 @@ import com.google.firebase.storage.StorageReference;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by priyank on 1/3/17.
@@ -158,7 +157,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
         //Storage reference from our app
         StorageReference mStorageRef = mStorage.getReferenceFromUrl("gs://letsplay-6cc97.appspot.com/");
         StorageReference mProfileRef = mStorageRef.child(sFirstName + " " + sLastName + " (" + sContact + ")").child("profile.jpg");
-        //Log.e(TAG, "Profile Reference " + mProfileRef);
+        //Log.v(TAG, "Profile Reference " + mProfileRef);
 
         File localFile = null;
         try {
@@ -195,7 +194,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
             @Override
             public void onClick(View v) {
 
-                //Log.d(TAG, "Profile Image Clicked");
+                //Log.v(TAG, "Profile Image Clicked");
                 Intent profileIntent = new Intent(AcceptedListDetailActivity.this, FullImageActivity.class);
 
                 if (mProfile.getDrawable() == null){
@@ -211,11 +210,12 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
                     //ByteArrayInputStream bis = new ByteArrayInputStream(profileImageInByte);
 
                     base64Image = Base64.encodeToString(profileImageInByte, Base64.DEFAULT);
-                    //Log.i(TAG, "Profile Image length: " + profileImageInByte.length);
+                    //Log.v(TAG, "Profile Image length: " + profileImageInByte.length);
 
                     ModelBase64.base64Image = base64Image;
                     profileIntent.putExtra("fname", sFirstName);
                     profileIntent.putExtra("lname", sLastName);
+
                     startActivity(profileIntent);
                 }
             }
@@ -224,7 +224,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
         // Certificate Image retrieve from Firebase Storage
         final StorageReference mCertificateRef = mStorageRef.child(sFirstName + " " + sLastName
                 + " (" + sContact + ")").child("Certificate.jpg");
-        //Log.e(TAG, "Certificate Reference " + mCertificateRef);
+        //Log.v(TAG, "Certificate Reference " + mCertificateRef);
 
         File localFile1 = null;
         try {
@@ -258,7 +258,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
         mCertificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d(TAG, "Certificate Image Clicked");
+                //Log.v(TAG, "Certificate Image Clicked");
                 Intent certificateIntent = new Intent(AcceptedListDetailActivity.this, FullImageActivity.class);
 
                 if (mCertificate.getDrawable() == null){
@@ -273,7 +273,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
                     byte[] certificateImageInByte = stream.toByteArray();
 
                     base64Image = Base64.encodeToString(certificateImageInByte, Base64.DEFAULT);
-                    //Log.i(TAG, "Profile Image length: " + certificateImageInByte.length);
+                    //Log.v(TAG, "Profile Image length: " + certificateImageInByte.length);
 
                     ModelBase64.base64Image = base64Image;
                     certificateIntent.putExtra("fname", sFirstName);
@@ -283,6 +283,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
                 }
             }
         });
+
     }
 
     @Override
@@ -316,17 +317,18 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
                 public void onClick(DialogInterface dialog, int which) {
 
                     DatabaseReference mNameRef = mDatabase.getReference("Accepted Participants");
-                    //Log.e(TAG, "Reject Name Ref " + mNameRef);
+                    //Log.v(TAG, "Reject Name Ref " + mNameRef);
 
                     mNameRef.child(sFirstName + " " + sLastName).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            //Log.e(TAG, "Datasnapshot " + dataSnapshot);
+                            //Log.v(TAG, "Datasnapshot " + dataSnapshot);
                             dataSnapshot.getRef().removeValue();
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            Log.e(TAG, "Failed to remove Firebase Accepted List " + "First name: " + sFirstName + databaseError.getMessage());
                         }
                     });
 
@@ -337,7 +339,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
                     //Storage reference from our app
                     StorageReference mStorageRef = mStorage.getReferenceFromUrl("gs://letsplay-6cc97.appspot.com/");
                     StorageReference mProfileRef = mStorageRef.child(sFirstName + " " + sLastName + " (" + sContact + ")").child("profile.jpg");
-                    //Log.e(TAG, "Profile Reference " + mProfileRef);
+                    //Log.v(TAG, "Profile Reference " + mProfileRef);
 
                     mProfileRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -348,6 +350,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Uh-oh, an error occurred!
+                            Log.e(TAG, "Remove: Failed to delete Profile Image of: " + sFirstName + exception.getMessage());
                         }
                     });
 
@@ -362,6 +365,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Uh-oh, an error occurred!
+                            Log.e(TAG, "Remove: Failed to delete Certificate Image of: " + sFirstName + exception.getMessage());
                         }
                     });
 
@@ -387,6 +391,7 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
         }
 
         if(view == mHome){
+
             closeAcceptedActivity();
         }
     }
@@ -395,7 +400,6 @@ public class AcceptedListDetailActivity extends AppCompatActivity implements Vie
 
         Intent closeIntent = new Intent(AcceptedListDetailActivity.this, ParticipantActivity.class);
         closeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        //finish();
         startActivity(closeIntent);
     }
 }

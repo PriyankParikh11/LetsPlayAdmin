@@ -37,7 +37,7 @@ public class ParticipantNames extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.details_of_participants);
 
-        Log.e(TAG, "ParticipantNamesActivity Started");
+        Log.v(TAG, "ParticipantNamesActivity Started");
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -47,7 +47,7 @@ public class ParticipantNames extends AppCompatActivity {
 
         Intent emailIntent = getIntent();
         final String mLoggedInEmailAddress = emailIntent.getStringExtra("EmailAddress");
-        Log.e(TAG, "Logged in Email Address: " + mLoggedInEmailAddress);
+        Log.i(TAG, "Logged in Email Address: " + mLoggedInEmailAddress);
 
         final Bundle parameters = getIntent().getExtras();
 
@@ -111,7 +111,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                     //String mFullName.length() >= 4 ? mFullName.substring(0, mFullName.length() - 5): "";
 
-                    //Log.i(TAG, "Full Name " + mFullName);
+                    //Log.v(TAG, "Full Name " + mFullName);
 
                     //ListView View
                     final ListView mNameListView1 = (ListView) findViewById(R.id.name_list);
@@ -128,10 +128,10 @@ public class ParticipantNames extends AppCompatActivity {
                             TextView textView = (TextView) view;
 
                             String mSelectedName = textView.getText().toString();
-                            //Log.i(TAG, "Clicked " + mSelectedName);
+                            //Log.v(TAG, "Clicked " + mSelectedName);
 
                             final Query mDetailRef = mDatabase.getReference("Up to 6 Years/" + mSelectedName);
-                            //Log.i(TAG, "Details " + mDetailRef);
+                            //Log.v(TAG, "Details " + mDetailRef);
 
                             mDetailRef.orderByChild(mSelectedName).addChildEventListener(new ChildEventListener() {
                                 @Override
@@ -184,7 +184,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                     Intent emailIntent = getIntent();
                                     final String sLoggedInEmailAddress = emailIntent.getStringExtra("EmailAddress");
-                                    //Log.e(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
+                                    //Log.i(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
 
                                     Intent intent6Years = new Intent(ParticipantNames.this, ParticipantDetails.class);
 
@@ -218,6 +218,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "Firebase error on details from Up to 6 Years: " + databaseError.getDetails());
                                 }
                             });
                         }
@@ -227,6 +228,7 @@ public class ParticipantNames extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Firebase error for Up to 6 Years: " + databaseError.getDetails());
             }
         });
     }
@@ -321,7 +323,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                     Intent emailIntent = getIntent();
                                     final String sLoggedInEmailAddress = emailIntent.getStringExtra("EmailAddress");
-                                    //Log.e(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
+                                    //Log.i(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
 
                                     //Profile Image
 
@@ -357,6 +359,8 @@ public class ParticipantNames extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "Firebase error on details from 6 to 12 Years: " + databaseError.getDetails());
+
                                 }
                             });
                         }
@@ -366,6 +370,7 @@ public class ParticipantNames extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Firebase error for 6 to 12 Years: " + databaseError.getDetails());
             }
         });
     }
@@ -458,7 +463,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                     Intent emailIntent = getIntent();
                                     final String sLoggedInEmailAddress = emailIntent.getStringExtra("EmailAddress");
-                                    //Log.e(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
+                                    //Log.i(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
 
                                     Intent intent16Years = new Intent(ParticipantNames.this, ParticipantDetails.class);
 
@@ -492,6 +497,8 @@ public class ParticipantNames extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "Firebase error on details from 13 to 16 Years: " + databaseError.getDetails());
+
                                 }
                             });
                         }
@@ -501,6 +508,7 @@ public class ParticipantNames extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Firebase error for 13 to 16 Years: " + databaseError.getDetails());
             }
         });
     }
@@ -593,7 +601,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                     Intent emailIntent = getIntent();
                                     final String sLoggedInEmailAddress = emailIntent.getStringExtra("EmailAddress");
-                                    //Log.e(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
+                                    //Log.i(TAG, "Logged in Email Address: " + sLoggedInEmailAddress);
 
                                     Intent intent40Years = new Intent(ParticipantNames.this, ParticipantDetails.class);
 
@@ -627,6 +635,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "Firebase error on details from Above 40 Years: " + databaseError.getDetails());
                                 }
                             });
                         }
@@ -636,6 +645,7 @@ public class ParticipantNames extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Firebase error for Above 40 Years: " + databaseError.getDetails());
             }
         });
     }
@@ -763,6 +773,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "Firebase error on details from Accepted Participants: " + databaseError.getDetails());
                                 }
                             });
                         }
@@ -772,6 +783,7 @@ public class ParticipantNames extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Firebase error for Accepted Participants: " + databaseError.getDetails());
             }
         });
     }
@@ -900,6 +912,7 @@ public class ParticipantNames extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "Firebase error on details from Rejected Participants: " + databaseError.getDetails());
                                 }
                             });
                         }
@@ -909,6 +922,7 @@ public class ParticipantNames extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.e(TAG, "Firebase error for Rejected Participants: " + databaseError.getDetails());
             }
         });
     }
